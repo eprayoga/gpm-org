@@ -35,14 +35,14 @@ const Navbar = () => {
           </Link>
 
           <Link
-            href="/crew"
+            href="/team"
             className={`cursor-pointer ${
-              isActive("/crew")
+              isActive("/team")
                 ? "text-zinc-50"
                 : "text-zinc-400 hover:text-zinc-50"
             }`}
           >
-            Crew
+            Team
           </Link>
 
           <Link
