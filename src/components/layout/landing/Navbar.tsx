@@ -25,46 +25,46 @@ const Navbar = () => {
         <div className="flex items-center gap-8">
           <Link
             href="/"
-            className={`cursor-pointer ${
+            className={`cursor-pointer font-mono ${
               pathname === "/"
                 ? "text-zinc-50"
                 : "text-zinc-400 hover:text-zinc-50"
             }`}
           >
-            Home
+            HOME
           </Link>
 
           <Link
             href="/team"
-            className={`cursor-pointer ${
+            className={`cursor-pointer font-mono ${
               isActive("/team")
                 ? "text-zinc-50"
                 : "text-zinc-400 hover:text-zinc-50"
             }`}
           >
-            Team
+            TEAM
           </Link>
 
           <Link
             href="/store"
-            className={`cursor-pointer ${
+            className={`cursor-pointer font-mono ${
               isActive("/store")
                 ? "text-zinc-50"
                 : "text-zinc-400 hover:text-zinc-50"
             }`}
           >
-            Shop
+            SHOP
           </Link>
 
           <Link
             href="/gallery"
-            className={`cursor-pointer ${
+            className={`cursor-pointer font-mono ${
               isActive("/gallery")
                 ? "text-zinc-50"
                 : "text-zinc-400 hover:text-zinc-50"
             }`}
           >
-            Gallery
+            GALLERY
           </Link>
         </div>
 

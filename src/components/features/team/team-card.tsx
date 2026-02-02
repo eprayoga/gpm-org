@@ -13,7 +13,7 @@ export function TeamMemberCard({ member, onClick }: TeamMemberCardProps) {
   return (
     <div
       onClick={onClick}
-      className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden cursor-pointer group hover:border-blue-600/50 transition-all"
+      className="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden cursor-pointer group hover:border-white/50 transition-all"
     >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-zinc-800">
@@ -25,23 +25,21 @@ export function TeamMemberCard({ member, onClick }: TeamMemberCardProps) {
         />
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-          <span className="text-sm font-mono text-blue-600">
-            VIEW PROFILE →
-          </span>
+          <span className="text-sm font-mono text-white">VIEW PROFILE →</span>
         </div>
       </div>
 
       {/* Info */}
       <div className="p-6 space-y-3">
         {/* Role Badge */}
-        <div className="inline-block px-3 py-1 bg-blue-600/20 border border-blue-600 rounded-full">
-          <span className="text-xs font-bold font-mono text-blue-600">
+        <div className="inline-block px-3 py-1 bg-white/20 border border-white rounded-full">
+          <span className="text-xs font-bold font-mono text-white">
             {member.role}
           </span>
         </div>
 
         {/* Name */}
-        <h3 className="text-2xl font-bold italic group-hover:text-blue-600 transition-colors">
+        <h3 className="text-2xl font-bold italic group-hover:text-white transition-colors">
           {member.name}
         </h3>
 
@@ -63,7 +61,7 @@ export function TeamMemberCard({ member, onClick }: TeamMemberCardProps) {
         {/* Favorite Distance */}
         <div className="pt-2 border-t border-zinc-800">
           <div className="flex items-center gap-2">
-            <Trophy size={16} className="text-blue-600" />
+            <Trophy size={16} className="text-white" />
             <span className="text-sm font-bold">{member.favoriteDistance}</span>
           </div>
         </div>

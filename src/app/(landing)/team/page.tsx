@@ -5,6 +5,7 @@ import { Users, ChevronRight } from "lucide-react";
 import { teamMembers } from "@/data/team-data";
 import { TeamMemberCard } from "@/components/features/team/team-card";
 import { TeamMemberDialog } from "@/components/features/team/team-member-dialog";
+import { Button } from "@/components/ui/button";
 
 export default function TeamPage() {
   const [selectedMemberIndex, setSelectedMemberIndex] = useState<number | null>(
@@ -46,7 +47,7 @@ export default function TeamPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="border-b border-zinc-800 bg-gradient-to-b from-blue-950/20 to-transparent">
+      <div className="border-b border-zinc-800 bg-gradient-to-b from-white/10 to-transparent">
         <div className="mx-auto px-8 py-8">
           {/* Breadcrumb */}
           <div className="flex items-center gap-3 text-xs text-zinc-500 font-mono mb-6">
@@ -58,7 +59,7 @@ export default function TeamPage() {
           {/* Title */}
           <div className="max-w-3xl">
             <div className="flex items-center gap-4 mb-6">
-              {/* <Users size={48} className="text-blue-600" /> */}
+              {/* <Users size={48} className="" /> */}
               <h1 className="text-7xl font-bold italic">OUR TEAM</h1>
             </div>
             <p className="text-xl text-zinc-400 font-mono leading-relaxed">
@@ -71,19 +72,19 @@ export default function TeamPage() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6 mt-12">
             <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-lg">
-              <div className="text-4xl font-bold text-blue-600 mb-2">6</div>
+              <div className="text-4xl font-bold  mb-2">6</div>
               <div className="text-sm font-mono text-zinc-500">
                 ELITE COACHES
               </div>
             </div>
             <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-lg">
-              <div className="text-4xl font-bold text-blue-600 mb-2">80+</div>
+              <div className="text-4xl font-bold  mb-2">80+</div>
               <div className="text-sm font-mono text-zinc-500">
                 YEARS COMBINED
               </div>
             </div>
             <div className="p-6 bg-zinc-900 border border-zinc-800 rounded-lg">
-              <div className="text-4xl font-bold text-blue-600 mb-2">50K+</div>
+              <div className="text-4xl font-bold  mb-2">50K+</div>
               <div className="text-sm font-mono text-zinc-500">KM WEEKLY</div>
             </div>
           </div>
@@ -113,12 +114,9 @@ export default function TeamPage() {
               our community. If you think you'd be a good fit, we'd love to hear
               from you.
             </p>
-            <a
-              href="mailto:careers@gpmstore.com"
-              className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-lg font-bold font-mono transition-all"
-            >
+            <Button className="px-8 py-4 rounded-lg font-bold font-mono transition-all">
               GET IN TOUCH
-            </a>
+            </Button>
           </div>
         </div>
       </div>
