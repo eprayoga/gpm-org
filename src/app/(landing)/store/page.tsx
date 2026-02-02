@@ -11,15 +11,15 @@ import {
 } from "@/components/ui/popover";
 import { products } from "@/data/product-data";
 import {
+  Check,
   ChevronDown,
   ChevronRight,
   Grid,
   Shirt,
-  Watch,
   UserCog,
-  Check,
+  Watch,
 } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
 type SortOption = "newest" | "price-low" | "price-high" | "name";
 type GridSize = "2" | "3" | "4";
@@ -84,7 +84,7 @@ export default function StorePage() {
   };
 
   return (
-    <div className="w-full min-h-screen border-t border-zinc-800 flex">
+    <div className="w-full h-screen border-t border-zinc-800 flex">
       {/* Sidebar */}
       <div className="w-75 border-r border-zinc-800 flex flex-col p-8">
         <span className="text-xs text-zinc-500 font-mono">
@@ -248,7 +248,7 @@ export default function StorePage() {
 
         {/* Products Grid */}
         <div
-          className={`w-full grid ${gridCols[gridSize]} grow bg-zinc-900 px-8`}
+          className={`w-full grid ${gridCols[gridSize]} grow bg-zinc-900 px-8 overflow-auto`}
         >
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
