@@ -15,7 +15,4 @@ export interface GalleryImage {
   date: string;
   photographer?: string;
   tags?: string[];
-  views?: number;
-  width: number;
-  height: number;
 }

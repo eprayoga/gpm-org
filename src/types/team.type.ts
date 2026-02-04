@@ -1,11 +1,3 @@
-// data/team-data.ts
-
-export interface SocialMedia {
-  platform: string;
-  url: string;
-  handle: string;
-}
-
 export interface PersonalRecord {
   distance: string;
   time: string;
@@ -20,6 +12,12 @@ export interface Achievement {
   description: string;
 }
 
+export interface Social {
+  platform: string;
+  url: string;
+  handle: string;
+}
+
 export interface TeamMember {
   id: string;
   name: string;
@@ -29,22 +27,12 @@ export interface TeamMember {
   bio: string;
   location: string;
   yearsRunning: number;
-
-  // Running Stats
   personalRecords: PersonalRecord[];
   weeklyMileage: string;
   favoriteDistance: string;
-
-  // Achievements
   achievements: Achievement[];
-
-  // Social Media
-  socials: SocialMedia[];
-
-  // Preferences
+  socials: Social[];
   favoriteGear: string[];
   runningPhilosophy: string;
-
-  // Additional
   joinedDate: string;
 }
