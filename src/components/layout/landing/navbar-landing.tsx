@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CartDrawer } from "@/components/features/store/cart-drawer";
 import { useCartStore } from "@/store/useCartStore";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { DialogTitle } from "@/components/ui/dialog";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -19,7 +20,15 @@ const Navbar = () => {
 
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  const isActive = (path: string) => pathname.startsWith(path);
+  const isActive = (path: string) => {
+    if (pathname === "/" && path === "/") {
+      return true;
+    } else {
+      if (pathname.startsWith(path) && path !== "/") {
+        return true;
+      }
+    }
+  };
 
   const navLinks = [
     { href: "/", label: "HOME" },
@@ -141,16 +150,20 @@ const Navbar = () => {
 
       {/* MOBILE MENU */}
       <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-        <SheetContent side="left" className="w-[280px] sm:w-[350px] p-0">
+        <SheetContent
+          side="left"
+          className="w-[280px] sm:w-[350px] p-0"
+          showCloseButton={false}
+        >
+          <DialogTitle />
           <div className="flex flex-col h-full">
             {/* Header */}
             <div className="p-6 border-b border-zinc-800 flex items-center justify-between">
               <Image
                 src="/images/logos/GPM - Full - White.png"
-                width={100}
+                width={120}
                 height={50}
                 alt="LOGO"
-                className="w-24 h-12"
               />
               <button
                 onClick={() => setIsMobileMenuOpen(false)}

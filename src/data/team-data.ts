@@ -3,7 +3,7 @@ import { TeamMember } from "@/types/team.type";
 export const teamData: TeamMember[] = [
   {
     id: "tm-001",
-    name: "Irham 'Ajo Knalpot'",
+    name: "MUHAMMAD IRHAM ABDUL GHANI",
     role: "TECHNICAL PERFORMANCE",
     specialty: "Speed & Endurance",
     image: "/images/teams/irham.png",
@@ -71,7 +71,7 @@ export const teamData: TeamMember[] = [
   },
   {
     id: "tm-003",
-    name: "Dias 'Phantom' Raharjo",
+    name: "DIAS RESTUYALI RIZQI",
     role: "ENDURANCE SPECIALIST",
     specialty: "Marathon & Ultra",
     image: "/images/teams/dias.png",
@@ -146,7 +146,7 @@ export const teamData: TeamMember[] = [
   },
   {
     id: "tm-002",
-    name: "Dhea 'Shift' Chen",
+    name: "DHEA RIZKIA MAYANDARI",
     role: "URBAN EXPLORATION",
     specialty: "Trail & City Routes",
     image: "/images/teams/dhea.png",
@@ -214,7 +214,7 @@ export const teamData: TeamMember[] = [
   },
   {
     id: "tm-004",
-    name: "Fachira 'Blaze' Putri",
+    name: "FACHIRA ADILA PERMATASARI",
     role: "SPRINT COACH",
     specialty: "Speed Training & Intervals",
     image: "/images/teams/fachira.png",
@@ -282,7 +282,7 @@ export const teamData: TeamMember[] = [
   },
   {
     id: "tm-005",
-    name: "Firly 'Ghost' Akbar",
+    name: "FIRLY FAUZIA HERMAPUTRA",
     role: "RECOVERY SPECIALIST",
     specialty: "Injury Prevention & Mobility",
     image: "/images/teams/firly.png",
@@ -350,7 +350,7 @@ export const teamData: TeamMember[] = [
   },
   {
     id: "tm-006",
-    name: "Nilam 'Stride' Kusuma",
+    name: "NILAM AULIYAH",
     role: "COMMUNITY BUILDER",
     specialty: "Group Runs & Events",
     image: "/images/teams/nilam.png",
