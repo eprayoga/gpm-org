@@ -3,7 +3,6 @@
 import { ProductCard } from "@/components/features/store/product-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Popover,
   PopoverContent,
@@ -14,10 +13,9 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { products } from "@/data/product-data";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Check,
   ChevronDown,
@@ -27,7 +25,6 @@ import {
   Shirt,
   UserCog,
   Watch,
-  X,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -79,36 +76,6 @@ const FilterSidebar = ({
             </motion.div>
           );
         })}
-      </div>
-
-      <motion.span
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="text-xs text-zinc-500 font-mono mt-8 lg:mt-10"
-      >
-        TECHNICAL SPECS
-      </motion.span>
-
-      <div className="flex flex-col gap-3 mt-4">
-        {[
-          { id: "reflective", label: "Reflective (3M)" },
-          { id: "aeroready", label: "Aeroready tech" },
-          { id: "thermal", label: "Thermal Insulation" },
-        ].map((spec, index) => (
-          <motion.div
-            key={spec.id}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 + index * 0.1 }}
-            className="flex gap-3 items-center text-xs"
-          >
-            <Checkbox id={spec.id} name={spec.id} />
-            <label htmlFor={spec.id} className="font-mono cursor-pointer">
-              {spec.label}
-            </label>
-          </motion.div>
-        ))}
       </div>
     </div>
   );

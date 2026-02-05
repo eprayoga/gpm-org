@@ -44,6 +44,7 @@ export function ProductCard({ product }: ProductCardProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: imageLoaded ? 1 : 0 }}
             transition={{ duration: 0.3 }}
+            className="w-full h-full"
           >
             <Image
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

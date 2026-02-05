@@ -488,7 +488,7 @@ export default function TeamPage() {
         <div className="border-y border-zinc-800 py-10 lg:py-20">
           <BlurReveal delay={0.2}>
             <div className="text-4xl lg:text-7xl xl:text-8xl font-bold leading-[1.1]">
-              NOT A TEAM, <br />A{" "}
+              MORE THAN A TEAM, <br />A{" "}
               <span
                 className="inline-block"
                 style={{
@@ -499,8 +499,8 @@ export default function TeamPage() {
                 MOVEMENT
               </span>
               , <br />
-              BUILT FOR THE STREET, <br />
-              REFINED FOR THE ATHLETE.
+              FORGED IN THE STREETS, <br />
+              PERFECTED FOR ATHLETES.
             </div>
           </BlurReveal>
         </div>

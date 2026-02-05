@@ -56,23 +56,6 @@ const HeroSection = () => {
             >
               GPM // URBAN PERFORMANCE ENGINEERING
             </motion.span>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1 }}
-              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center"
-            >
-              <Button className="px-6 sm:px-8 py-4 sm:py-6 font-mono text-sm w-full sm:w-auto">
-                SHOP THE DROP
-              </Button>
-              <Button
-                variant="outline"
-                className="px-6 sm:px-8 py-4 sm:py-6 font-mono text-sm w-full sm:w-auto"
-              >
-                JOIN CREW
-              </Button>
-            </motion.div>
           </div>
 
           {/* Background Image */}
@@ -83,7 +66,7 @@ const HeroSection = () => {
             className="absolute top-0 left-0 w-full h-full overflow-hidden bg-cover grayscale contrast-125 z-0"
             style={{
               backgroundImage:
-                'linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.9)), url("/images/backgrounds/urban-runner.png")',
+                'linear-gradient(rgba(13, 13, 13, 0.7), rgba(13, 13, 13, 0.9)), url("/images/backgrounds/the-team.jpg")',
               backgroundPosition: "center",
             }}
           />

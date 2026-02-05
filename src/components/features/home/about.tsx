@@ -104,12 +104,12 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
-            className="relative w-full lg:w-2/5 mt-10 lg:mt-0"
+            className="relative w-full h-full lg:w-2/5 mt-10 lg:mt-0"
           >
-            <div className="relative border border-zinc-800 w-full aspect-[3/4] p-2 sm:p-4">
-              <motion.div style={{ y }}>
+            <div className="relative border border-zinc-800 w-full h-full p-2 sm:p-4">
+              <motion.div style={{ y }} className="w-full h-full">
                 <Image
-                  src="/images/content/about-run.png"
+                  src="/images/content/about-run.jpeg"
                   alt="GPM-RUNNER"
                   width={400}
                   height={533}
