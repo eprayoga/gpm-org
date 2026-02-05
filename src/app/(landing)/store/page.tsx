@@ -175,7 +175,7 @@ export default function StorePage() {
   };
 
   return (
-    <div className="w-full h-screen border-t border-zinc-800 flex flex-col lg:flex-row">
+    <div className="w-full min-h-screen border-t border-zinc-800 flex flex-col lg:flex-row">
       {/* Desktop Sidebar */}
       <div className="hidden lg:block w-75 border-r border-zinc-800">
         <FilterSidebar
@@ -377,7 +377,7 @@ export default function StorePage() {
 
         {/* Products Grid */}
         <div
-          className={`w-full grid ${gridCols[gridSize]} gap-4 p-4 sm:p-6 lg:p-8 bg-zinc-900 overflow-y-auto`}
+          className={`w-full grid ${gridCols[gridSize]} gap-4 p-4 sm:p-6 lg:p-8 bg-zinc-900`}
         >
           <AnimatePresence mode="wait">
             {filteredProducts.length > 0 ? (
