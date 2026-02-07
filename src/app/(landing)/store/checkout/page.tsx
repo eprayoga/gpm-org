@@ -23,13 +23,38 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+
+// Zod Schema untuk validasi form
+const shippingInfoSchema = z.object({
+  firstName: z.string().min(2, "First name must be at least 2 characters"),
+  lastName: z.string().min(2, "Last name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z
+    .string()
+    .min(10, "Phone number must be at least 10 digits")
+    .regex(
+      /^[0-9+\s-]+$/,
+      "Phone number can only contain numbers, +, -, and spaces",
+    ),
+  address: z.string().min(5, "Address must be at least 5 characters"),
+  city: z.string().min(2, "City name must be at least 2 characters"),
+  state: z.string().min(2, "State/Province must be at least 2 characters"),
+  postalCode: z
+    .string()
+    .min(5, "Postal code must be at least 5 characters")
+    .max(10, "Postal code must be at most 10 characters"),
+  country: z.string().min(2, "Country is required"),
+});
+
+type ShippingInfo = z.infer<typeof shippingInfoSchema>;
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { items, getCartTotal, clearCart } = useCartStore();
 
   // Form states
-  const [shippingInfo, setShippingInfo] = useState({
+  const [shippingInfo, setShippingInfo] = useState<ShippingInfo>({
     firstName: "",
     lastName: "",
     email: "",
@@ -40,6 +65,11 @@ export default function CheckoutPage() {
     postalCode: "",
     country: "Indonesia",
   });
+
+  // State untuk menyimpan error validasi
+  const [validationErrors, setValidationErrors] = useState<
+    Partial<Record<keyof ShippingInfo, string>>
+  >({});
 
   const [paymentMethod, setPaymentMethod] = useState("credit-card");
   const [shippingMethod, setShippingMethod] = useState("standard");
@@ -84,47 +114,70 @@ export default function CheckoutPage() {
   const total = subtotal + shippingCost + tax;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
     setShippingInfo({
       ...shippingInfo,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
+
+    // Clear error untuk field yang sedang diubah
+    if (validationErrors[name as keyof ShippingInfo]) {
+      setValidationErrors({
+        ...validationErrors,
+        [name]: undefined,
+      });
+    }
   };
 
-  const validateForm = () => {
-    const required = [
-      "firstName",
-      "lastName",
-      "email",
-      "phone",
-      "address",
-      "city",
-      "state",
-      "postalCode",
-    ];
+  // Validasi individual field saat blur
+  const handleInputBlur = (fieldName: keyof ShippingInfo) => {
+    try {
+      const fieldSchema = shippingInfoSchema.shape[fieldName];
+      fieldSchema.parse(shippingInfo[fieldName]);
 
-    for (const field of required) {
-      if (!shippingInfo[field as keyof typeof shippingInfo]) {
-        toast.error(
-          `Please fill in ${field.replace(/([A-Z])/g, " $1").toLowerCase()}`,
-        );
-        return false;
+      // Clear error jika valid
+      setValidationErrors({
+        ...validationErrors,
+        [fieldName]: undefined,
+      });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setValidationErrors({
+          ...validationErrors,
+          [fieldName]: error.issues[0].message,
+        });
       }
     }
+  };
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(shippingInfo.email)) {
-      toast.error("Please enter a valid email address");
+  const validateForm = (): boolean => {
+    try {
+      shippingInfoSchema.parse(shippingInfo);
+      setValidationErrors({});
+      return true;
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors: Partial<Record<keyof ShippingInfo, string>> = {};
+
+        error.issues.forEach((err) => {
+          if (err.path[0]) {
+            errors[err.path[0] as keyof ShippingInfo] = err.message;
+          }
+        });
+
+        setValidationErrors(errors);
+
+        // Tampilkan toast untuk error pertama
+        const firstError = error.issues[0];
+        toast.error("Validation Error", {
+          description: firstError.message,
+        });
+
+        return false;
+      }
       return false;
     }
-
-    // Phone validation
-    if (shippingInfo.phone.length < 10) {
-      toast.error("Please enter a valid phone number");
-      return false;
-    }
-
-    return true;
   };
 
   const handlePlaceOrder = async () => {
@@ -236,9 +289,17 @@ export default function CheckoutPage() {
                     name="firstName"
                     value={shippingInfo.firstName}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("firstName")}
+                    className={`mt-2 ${
+                      validationErrors.firstName ? "border-red-500" : ""
+                    }`}
                     placeholder="John"
                   />
+                  {validationErrors.firstName && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.firstName}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="lastName" className="font-mono text-xs">
@@ -249,9 +310,17 @@ export default function CheckoutPage() {
                     name="lastName"
                     value={shippingInfo.lastName}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("lastName")}
+                    className={`mt-2 ${
+                      validationErrors.lastName ? "border-red-500" : ""
+                    }`}
                     placeholder="Doe"
                   />
+                  {validationErrors.lastName && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.lastName}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="email" className="font-mono text-xs">
@@ -263,9 +332,17 @@ export default function CheckoutPage() {
                     type="email"
                     value={shippingInfo.email}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("email")}
+                    className={`mt-2 ${
+                      validationErrors.email ? "border-red-500" : ""
+                    }`}
                     placeholder="john.doe@example.com"
                   />
+                  {validationErrors.email && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.email}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="phone" className="font-mono text-xs">
@@ -277,9 +354,17 @@ export default function CheckoutPage() {
                     type="tel"
                     value={shippingInfo.phone}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("phone")}
+                    className={`mt-2 ${
+                      validationErrors.phone ? "border-red-500" : ""
+                    }`}
                     placeholder="+62 812 3456 7890"
                   />
+                  {validationErrors.phone && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.phone}
+                    </p>
+                  )}
                 </div>
                 <div className="col-span-2">
                   <Label htmlFor="address" className="font-mono text-xs">
@@ -290,9 +375,17 @@ export default function CheckoutPage() {
                     name="address"
                     value={shippingInfo.address}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("address")}
+                    className={`mt-2 ${
+                      validationErrors.address ? "border-red-500" : ""
+                    }`}
                     placeholder="Jl. Sudirman No. 123"
                   />
+                  {validationErrors.address && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.address}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="city" className="font-mono text-xs">
@@ -303,9 +396,17 @@ export default function CheckoutPage() {
                     name="city"
                     value={shippingInfo.city}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("city")}
+                    className={`mt-2 ${
+                      validationErrors.city ? "border-red-500" : ""
+                    }`}
                     placeholder="Jakarta"
                   />
+                  {validationErrors.city && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.city}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="state" className="font-mono text-xs">
@@ -316,9 +417,17 @@ export default function CheckoutPage() {
                     name="state"
                     value={shippingInfo.state}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("state")}
+                    className={`mt-2 ${
+                      validationErrors.state ? "border-red-500" : ""
+                    }`}
                     placeholder="DKI Jakarta"
                   />
+                  {validationErrors.state && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.state}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="postalCode" className="font-mono text-xs">
@@ -329,9 +438,17 @@ export default function CheckoutPage() {
                     name="postalCode"
                     value={shippingInfo.postalCode}
                     onChange={handleInputChange}
-                    className="mt-2"
+                    onBlur={() => handleInputBlur("postalCode")}
+                    className={`mt-2 ${
+                      validationErrors.postalCode ? "border-red-500" : ""
+                    }`}
                     placeholder="12345"
                   />
+                  {validationErrors.postalCode && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {validationErrors.postalCode}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="country" className="font-mono text-xs">
